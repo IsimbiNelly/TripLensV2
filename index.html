@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripLens - Trip Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-car-side"></i>
+                <span>TripLens</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active">Dashboard</a>
+                <a href="#analytics" class="nav-link">Analytics</a>
+                <a href="#reports" class="nav-link">Reports</a>
+                <a href="#settings" class="nav-link">Settings</a>
+            </div>
+            <div class="nav-user">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Header -->
+        <section class="dashboard-header">
+            <div class="header-content">
+                <h1>Trip Analytics Dashboard</h1>
+                <p>Monitor and analyze trip data across different vendors</p>
+                <div class="date-range-picker">
+                    <input type="date" id="start-date" class="date-input">
+                    <span>to</span>
+                    <input type="date" id="end-date" class="date-input">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-filter"></i>
+                        Apply Filter
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Cards -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <div class="metric-content">
+                    <h3 id="total-trips">0</h3>
+                    <p>Total Trips</p>
+                    <span class="metric-change positive">+12.5%</span>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="metric-content">
+                    <h3 id="avg-duration">0 min</h3>
+                    <p>Avg Duration</p>
+                    <span class="metric-change negative">-3.2%</span>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="metric-content">
+                    <h3 id="total-passengers">0</h3>
+                    <p>Total Passengers</p>
+                    <span class="metric-change positive">+8.7%</span>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="metric-content">
+                    <h3 id="revenue">$0</h3>
+                    <p>Estimated Revenue</p>
+                    <span class="metric-change positive">+15.3%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts and Analytics -->
+        <section class="analytics-section">
+            <div class="charts-grid">
+                <!-- Trip Trends Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Trip Trends</h3>
+                        <div class="chart-controls">
+                            <select class="chart-select">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="tripTrendsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Vendor Performance -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Vendor Performance</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="vendorChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Geographic Distribution -->
+                <div class="chart-container full-width">
+                    <div class="chart-header">
+                        <h3>Geographic Distribution</h3>
+                        <div class="chart-controls">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-map-marker-alt"></i>
+                                View Map
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div id="map-container">
+                            <div class="map-placeholder">
+                                <i class="fas fa-map"></i>
+                                <p>Interactive Map Coming Soon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="data-section">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Recent Trips</h3>
+                    <div class="table-controls">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search trips..." id="trip-search">
+                        </div>
+                        <select class="filter-select">
+                            <option value="all">All Vendors</option>
+                            <option value="1">Yego Taxi</option>
+                            <option value="2">SafeBoda</option>
+                        </select>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Trip ID</th>
+                                <th>Vendor</th>
+                                <th>Pickup Time</th>
+                                <th>Duration</th>
+                                <th>Passengers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trips-table-body">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-pagination">
+                    <button class="btn btn-outline" id="prev-page">Previous</button>
+                    <span class="page-info">Page 1 of 10</span>
+                    <button class="btn btn-outline" id="next-page">Next</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading data...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
